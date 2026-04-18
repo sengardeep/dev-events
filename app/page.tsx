@@ -1,8 +1,11 @@
 import EventCard from "@/components/EventCard"
 import ExportBtn from "@/components/ExportBtn"
-import { events } from "@/lib/constants"
+import type { IEvent } from "@/database";
+import { getLatestEvents } from "@/lib/actions/event.actions";
 
-const Home = () => {
+const Home = async () => {
+    const events: IEvent[] = await getLatestEvents();
+
     return (
         <section>
             <h1 className="text-center">
@@ -10,15 +13,18 @@ const Home = () => {
             </h1>
             <p className="text-center">Hackathons, Meetups, and Conferences, All in one page</p>
             <ExportBtn />
-            <div className="mt-20 space-y-7">
+            <div className="mt-20 space-y-7" id="events">
                 <h3>Featured Events</h3>
-                <ul className="events list-none">
-                    {events.map((e) => (
-                        <li key={e.title}>
+                <ul className="events list-none" aria-live="polite">
+                    {events.length > 0 && events.map((e: IEvent) => (
+                        <li key={e.slug}>
                             <EventCard {...e} />
                         </li>
                     ))}
                 </ul>
+                {events.length === 0 && (
+                    <p className="text-light-100 text-sm">No events are available right now.</p>
+                )}
             </div>
         </section>
     )
