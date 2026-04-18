@@ -40,6 +40,7 @@ const bookingSchema = new Schema<IBooking>(
 )
 
 bookingSchema.index({ eventId: 1 })
+bookingSchema.index({ eventId: 1, email: 1 }, { unique: true })
 
 bookingSchema.pre("save", async function (this: BookingDocument) {
     // Keep email normalized so uniqueness checks and lookups are deterministic.

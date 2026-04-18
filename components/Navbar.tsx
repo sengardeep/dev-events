@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
 
 const Navbar = () => {
   return (
@@ -12,9 +11,15 @@ const Navbar = () => {
             </Link>
 
             <ul>
-                <Link href='/'>Home</Link>
-                <Link href='/'>Events</Link>
-                <Link href='/'>Create Event</Link>
+                <li>
+                  <Link href='/'>Home</Link>
+                </li>
+                <li>
+                  <Link href='/#events'>Events</Link>
+                </li>
+                <li>
+                  <Link href='/event/create'>Create Event</Link>
+                </li>
             </ul>
         </nav>
     </header>
